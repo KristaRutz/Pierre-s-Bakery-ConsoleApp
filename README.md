@@ -37,7 +37,7 @@ Download or clone the repository to run this program locally! _This program requ
 
 | Spec | Example Input | Expected Output |
 | :-------------     | :------------- | :------------- |
-| User can quit the application | '2' | "Exited" |
+| User can quit the application | 'x' | "Goodbye" > Exited |
 | User can continue on to see the specials and take actions | '1' | "Today's specials...make a selection!" |
 | User can select how many loaves of bread to buy | '3'| "You have added 3 loaves of bread to your purchase" |
 | User can select how many pastries to buy | '2'| "You have added 2 pastries to your purchase" |
@@ -45,19 +45,6 @@ Download or clone the repository to run this program locally! _This program requ
 | User can view the total cost of the purchase | "view subtotal" | Your order costs $14 |
 | Pierre's deals will be applied: B2GO bread, 3 for $5 pastries. | "Buy 3 pastries" | Subtotal: $5 |
 | User can remove bread or pastries from their order | Remove 1 pastry | Subtotal: $4, Pastries: 2 |
-
-There should be two classes: one for Bread and one for Pastry.
-
-When the user runs the application, they should receive a prompt with a welcome message along with the cost for both Bread and Pastry.
-
-A user should be able to specify how many loaves of Bread and how many Pastrys they'd like.
-
-The application will return the total cost of the order.
-
-Pierre offers the following deals:
-
-Bread: Buy 2, get 1 free. A single loaf costs $5.
-Pastry: Buy 1 for \$2 or 3 for $5.
 
 </details>
 
