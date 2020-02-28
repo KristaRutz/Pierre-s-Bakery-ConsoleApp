@@ -10,29 +10,28 @@ namespace BakeryService.Models
     public string BakeryName { get; set; }
     public Bread Breads = new Bread(40);
     public Pastry Pastries = new Pastry(100);
+    public int Register { get; set; } = 0;
     //public int BreadLoaves { get; set; } = 100;
     //public int Pastries { get; set; } = 40;
-    public int MyBreads { get; set; } = 0;
-    public int MyPastries { get; set; } = 0;
+    public int UserBreads { get; set; } = 0;
+    public int UserPastries { get; set; } = 0;
     //public int[] MyOrder { get; set; }
 
     public Bakery(string bakeryName)
     {
       BakeryName = bakeryName;
-      //MyOrder = new int[] {MyBreads, MyPastries};
+      //MyOrder = new int[] {UserBreads, UserPastries};
     }
 
     public void WelcomeACustomer()
     {
       Console.WriteLine($"Welcome to {BakeryName} Bakery!");
-       Console.WriteLine();
+      Thread.Sleep(1000);
       Console.WriteLine("Here is today's menu:");
       PrintDeals();
-      if (ContinueOrExit())
-      {
-        Console.Write("How can we assist you today? ");
-        CustomersChoice();
-      }
+      Thread.Sleep(1000);
+      Console.WriteLine("How can we assist you today?");
+      CustomersChoice();
     }
 
     public void PrintDeals()
@@ -79,25 +78,25 @@ namespace BakeryService.Models
       {
         Console.WriteLine("How many loaves of bread would you like to order? [Enter a number]");
         int amount = int.Parse(Console.ReadLine());
-        MyBreads += Breads.OrderBread(amount);
-        Console.Write("Current bread order is ");
-        Console.WriteLine(MyBreads);
+        UserBreads += Breads.OrderBread(amount);
+        Console.Write($"Current Bread: ({UserBreads}) loaves for ({UserBreads * Bread.Price}");
+        Console.WriteLine(UserBreads);
         CustomersChoice();
       }
       else if (choice == "pastry" || choice == "pastries" || choice == "p")
       {
         Console.WriteLine("How many pastries would you like to order? [Enter a number]");
         int amount = int.Parse(Console.ReadLine());
-        MyPastries += Pastries.OrderPastry(amount);
-        Console.Write("Current pastry order is ");
-        Console.WriteLine(MyPastries);
+        UserPastries += Pastries.OrderPastry(amount);
+        Console.Write($"Current Pastries: ({UserPastries}) pastries for ({UserPastries * Pastry.Price}");
+        Console.WriteLine(UserPastries);
         CustomersChoice();
       } 
-      else if (choice == "cinnamon roll" || choice == "coffee")
-      {
-        Console.WriteLine("You have unlocked the secret menu!");
-        // ask how many, then add to subtotal;
-      }
+      // else if (choice == "cinnamon roll" || choice == "coffee")
+      // {
+      //   Console.WriteLine("You have unlocked the secret menu!");
+      //   // ask how many, then add to subtotal;
+      // }
       else if (choice == "nothing" || choice == "x")
       {
         Console.Write("Okay. Would you like to continue? ");
@@ -114,17 +113,52 @@ namespace BakeryService.Models
 
     public void Checkout()
     {
-
+      PrintOrder();
+      Register += Subtotal();
+      Console.WriteLine($"You have successfully purchased your items for a total of ${Subtotal()}. Enjoy your baked goods, and we'll see you next time at Pierre's!");
+      UserPastries = 0;
+      UserBreads = 0;
+      ContinueOrExit();
     }
 
     public void PrintOrder()
     {
+      Console.WriteLine();
+      if (UserBreads == 0 && UserPastries == 0)
+      {
+        Console.WriteLine("Your order is empty.");
+        CustomersChoice();
+      }
+      else{
+        Console.WriteLine("Your order:");
+        if (UserBreads > 0)
+        {
+          Console.WriteLine($"Loaves of Bread: {UserBreads}");
+        }
+        if(UserPastries > 0)
+        {
+          Console.WriteLine($"Pastries: {UserPastries}");
+        }
+        Console.WriteLine($"Subtotal: ${Subtotal()}");
+      }
+      
+    }
 
+    public int Subtotal()
+    {
+      return ((UserBreads) * Bread.Price) + ((UserPastries) * Pastry.Price);
     }
 
     public void CustomersChoice()
     {
-      Console.WriteLine("[Type '1' to view the daily menu again, '2' to make a menu order, '3' to view your current order, '4' to checkout, or 'x' to quit]");
+      Console.WriteLine();
+      Thread.Sleep(1000);
+      Console.WriteLine("'1' to view the daily menu again");
+      Console.WriteLine("'2' to make a menu order");
+      Console.WriteLine("'3' to view your current order");
+      Console.WriteLine("'4' to checkout");
+      Console.WriteLine("'x' to quit");
+      //Console.WriteLine("[Type '1' to view the daily menu again, '2' to make a menu order, '3' to view your current order, '4' to checkout, or 'x' to quit]");
       string choice = Console.ReadLine();
       if (choice == "1")
       {
