@@ -4,18 +4,37 @@ namespace Products
 {
   public class Bread
   {
-    public static int Price { get; set; }
+    public static int Price { get; set; } = 5;
     public static string Category { get; set; } = "bread";
-    public bool Sliced = false; 
+    public bool Sliced { get; set; } = false;
+    public int BreadInventory; 
 
-    public Bread()
+    public Bread(int amount)
     {
-
+      BreadInventory = amount;
     }
 
     public void Slice()
     {
+      Sliced = true;
       // increase the cost of sliced ?
+    }
+
+    public int OrderBread(int loaves)
+    {
+      if (BreadInventory >= loaves)
+      {
+        BreadInventory -= loaves;
+        Console.WriteLine($"You have successfully ordered ({loaves}) loaves of bread.");
+        return loaves;
+      }
+      else
+      {
+        int purchased = BreadInventory;
+        BreadInventory = 0;
+        Console.WriteLine($"You have attempted to buy more bread than is currently in stock. We let you add ({purchased}) loaves of bread to your order.");
+        return purchased;
+      }
     }
   }
 }
