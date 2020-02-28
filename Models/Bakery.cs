@@ -8,12 +8,18 @@ namespace BakeryService.Models
   public class Bakery
   {
     public string BakeryName { get; set; }
-    public int BreadLoaves { get; set; } = 0;
-    public int Pastries { get; set; } = 0;
+    public Bread Breads = new Bread(40);
+    public Pastry Pastries = new Pastry(100);
+    //public int BreadLoaves { get; set; } = 100;
+    //public int Pastries { get; set; } = 40;
+    public int MyBreads { get; set; } = 0;
+    public int MyPastries { get; set; } = 0;
+    //public int[] MyOrder { get; set; }
 
     public Bakery(string bakeryName)
     {
       BakeryName = bakeryName;
+      //MyOrder = new int[] {MyBreads, MyPastries};
     }
 
     public void WelcomeACustomer()
@@ -25,6 +31,7 @@ namespace BakeryService.Models
       if (ContinueOrExit())
       {
         Console.Write("How can we assist you today? ");
+        CustomersChoice();
       }
     }
 
@@ -32,9 +39,9 @@ namespace BakeryService.Models
     {
       Console.WriteLine("");
       Console.WriteLine("---------- M E N U ----------");
-      if (BreadLoaves > 0 || Pastries > 0)
+      if (Breads.BreadInventory > 0 || Pastries.PastryInventory > 0)
       {
-        if (BreadLoaves > 0)
+        if (Breads.BreadInventory > 0)
         {
           Console.WriteLine("Loaf of bread..............$5");
         }
@@ -42,7 +49,7 @@ namespace BakeryService.Models
         {
           Console.WriteLine("Loaf of bread....OUT OF STOCK");
         }
-        if (Pastries > 0)
+        if (Pastries.PastryInventory > 0)
         {
           Console.WriteLine("Pastry.....................$2");
         }
@@ -64,6 +71,57 @@ namespace BakeryService.Models
       Console.WriteLine("");
     }
 
+    public void PlaceOrder()
+    {
+      Console.WriteLine("What would you like to order?");
+      string choice = Console.ReadLine().ToLower();
+      if (choice == "bread" || choice == "b")
+      {
+        Console.WriteLine("How many loaves of bread would you like to order? [Enter a number]");
+        int amount = int.Parse(Console.ReadLine());
+        MyBreads += Breads.OrderBread(amount);
+        Console.Write("Current bread order is ");
+        Console.WriteLine(MyBreads);
+        CustomersChoice();
+      }
+      else if (choice == "pastry" || choice == "pastries" || choice == "p")
+      {
+        Console.WriteLine("How many pastries would you like to order? [Enter a number]");
+        int amount = int.Parse(Console.ReadLine());
+        MyPastries += Pastries.OrderPastry(amount);
+        Console.Write("Current pastry order is ");
+        Console.WriteLine(MyPastries);
+        CustomersChoice();
+      } 
+      else if (choice == "cinnamon roll" || choice == "coffee")
+      {
+        Console.WriteLine("You have unlocked the secret menu!");
+        // ask how many, then add to subtotal;
+      }
+      else if (choice == "nothing" || choice == "x")
+      {
+        Console.Write("Okay. Would you like to continue? ");
+        if (ContinueOrExit())
+        {
+          CustomersChoice();
+        }
+      }
+      else {
+        Console.Write("Please enter a valid input. ");
+        PlaceOrder();
+      }
+    }
+
+    public void Checkout()
+    {
+
+    }
+
+    public void PrintOrder()
+    {
+
+    }
+
     public void CustomersChoice()
     {
       Console.WriteLine("[Type '1' to view the daily menu again, '2' to make a menu order, '3' to view your current order, '4' to checkout, or 'x' to quit]");
@@ -75,20 +133,28 @@ namespace BakeryService.Models
       }
       else if (choice == "2")
       {
+        PlaceOrder();
         CustomersChoice();
       }
       else if (choice == "3")
       {
+        PrintOrder();
         CustomersChoice();
       }
       else if (choice == "4")
       {
-        // perhaps continue or exit?
+        Checkout();
+        if (ContinueOrExit())
+        {
+          CustomersChoice();
+        }
       }
       else if (choice == "x" || choice == "X")
       {
-        Console.WriteLine("Goodbye.");
-        System.Environment.Exit(0);
+        if (ContinueOrExit())
+        {
+          CustomersChoice();
+        }
       }
       else
       {
