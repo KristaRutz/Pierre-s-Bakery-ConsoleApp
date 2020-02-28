@@ -41,6 +41,7 @@ namespace Products
     {
       int remainder = amount % 3;
       int subtotal = ((amount - remainder)*2/3 + remainder) * 5;
+      return subtotal;
     }
   }
 }

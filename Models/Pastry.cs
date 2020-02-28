@@ -29,5 +29,11 @@ namespace Products
         return purchased;
       }
     }
+
+    public int GetCost(int amount)
+    {
+      int remainder = amount % 3;
+      int subtotal = (remainder * 2) + (amount-remainder)/3*5;
+    }
   }
 }
