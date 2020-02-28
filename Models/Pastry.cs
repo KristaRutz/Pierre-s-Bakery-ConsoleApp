@@ -30,10 +30,11 @@ namespace Products
       }
     }
 
-    public int GetCost(int amount)
+    public static int GetCost(int amount)
     {
       int remainder = amount % 3;
-      int subtotal = (remainder * 2) + (amount-remainder)/3*5;
+      int subtotal = (remainder * Price) + (amount-remainder)/3*(Price*3-1);
+      return subtotal;
     }
   }
 }

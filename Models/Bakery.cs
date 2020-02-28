@@ -79,8 +79,7 @@ namespace BakeryService.Models
         Console.WriteLine("How many loaves of bread would you like to order? [Enter a number]");
         int amount = int.Parse(Console.ReadLine());
         UserBreads += Breads.OrderBread(amount);
-        Console.Write($"Current Bread: ({UserBreads}) loaves for ({UserBreads * Bread.Price}");
-        Console.WriteLine(UserBreads);
+        Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
         CustomersChoice();
       }
       else if (choice == "pastry" || choice == "pastries" || choice == "p")
@@ -88,8 +87,7 @@ namespace BakeryService.Models
         Console.WriteLine("How many pastries would you like to order? [Enter a number]");
         int amount = int.Parse(Console.ReadLine());
         UserPastries += Pastries.OrderPastry(amount);
-        Console.Write($"Current Pastries: ({UserPastries}) pastries for ({UserPastries * Pastry.Price}");
-        Console.WriteLine(UserPastries);
+        Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
         CustomersChoice();
       } 
       // else if (choice == "cinnamon roll" || choice == "coffee")
@@ -146,7 +144,7 @@ namespace BakeryService.Models
 
     public int Subtotal()
     {
-      return ((UserBreads) * Bread.Price) + ((UserPastries) * Pastry.Price);
+      return (Bread.GetCost(UserBreads) + Pastry.GetCost(UserPastries));
     }
 
     public void CustomersChoice()
