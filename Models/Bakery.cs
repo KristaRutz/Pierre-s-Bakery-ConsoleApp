@@ -11,11 +11,8 @@ namespace BakeryService.Models
     public Bread Breads = new Bread(40);
     public Pastry Pastries = new Pastry(100);
     public int Register { get; set; } = 0;
-    //public int BreadLoaves { get; set; } = 100;
-    //public int Pastries { get; set; } = 40;
     public int UserBreads { get; set; } = 0;
     public int UserPastries { get; set; } = 0;
-    //public int[] MyOrder { get; set; }
 
     public Bakery(string bakeryName)
     {
@@ -70,6 +67,49 @@ namespace BakeryService.Models
       Console.WriteLine("");
     }
 
+    public void EditOrder()
+    {
+      PrintOrder();
+      Console.WriteLine("Which item would you like to edit?");
+      string choice = Console.ReadLine().ToLower();
+      if ((choice == "bread" || choice == "b") && UserBreads > 0)
+      {
+        Console.WriteLine("You are editing your bread order. How many loaves would you like to remove? [Enter a number]");
+        int amount = int.Parse(Console.ReadLine());
+        if (UserBreads >= amount)
+        {
+          UserBreads -= Breads.RemoveBread(amount);
+          Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
+        }
+        else 
+        {
+          Console.Write("You cannot remove more bread than you have already ordered.");
+        }
+      }
+      else if (choice == "pastry" || choice == "pastries" || choice == "p")
+      {
+        Console.WriteLine("You are editing your pastry order. How many pastries would you like to remove? [Enter a number]");
+        int amount = int.Parse(Console.ReadLine());
+        if (UserPastries >= amount)
+        {
+          UserPastries -= Pastries.RemovePastry(amount);
+          Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
+        }
+        else
+        {
+          Console.Write("You cannot remove more pastries than you have already ordered.");
+        }
+      } 
+      else if (choice == "nothing" || choice == "x" || choice == "n" || choice == "none")
+      {
+
+      }
+      else {
+        Console.Write("Please enter a valid input. ");
+        EditOrder();
+      }
+    }
+
     public void PlaceOrder()
     {
       Console.WriteLine("What would you like to order?");
@@ -80,7 +120,6 @@ namespace BakeryService.Models
         int amount = int.Parse(Console.ReadLine());
         UserBreads += Breads.OrderBread(amount);
         Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
-        CustomersChoice();
       }
       else if (choice == "pastry" || choice == "pastries" || choice == "p")
       {
@@ -88,14 +127,8 @@ namespace BakeryService.Models
         int amount = int.Parse(Console.ReadLine());
         UserPastries += Pastries.OrderPastry(amount);
         Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
-        CustomersChoice();
       } 
-      // else if (choice == "cinnamon roll" || choice == "coffee")
-      // {
-      //   Console.WriteLine("You have unlocked the secret menu!");
-      //   // ask how many, then add to subtotal;
-      // }
-      else if (choice == "nothing" || choice == "x")
+      else if (choice == "nothing" || choice == "x" || choice == "n")
       {
         Console.Write("Okay. Would you like to continue? ");
         if (ContinueOrExit())
@@ -125,7 +158,6 @@ namespace BakeryService.Models
       if (UserBreads == 0 && UserPastries == 0)
       {
         Console.WriteLine("Your order is empty.");
-        CustomersChoice();
       }
       else{
         Console.WriteLine("Your order:");
@@ -155,6 +187,7 @@ namespace BakeryService.Models
       Console.WriteLine("'2' to make a menu order");
       Console.WriteLine("'3' to view your current order");
       Console.WriteLine("'4' to checkout");
+      Console.WriteLine("'5' to edit current order");
       Console.WriteLine("'x' to quit");
       //Console.WriteLine("[Type '1' to view the daily menu again, '2' to make a menu order, '3' to view your current order, '4' to checkout, or 'x' to quit]");
       string choice = Console.ReadLine();
@@ -181,6 +214,11 @@ namespace BakeryService.Models
           CustomersChoice();
         }
       }
+      else if (choice == "5")
+      {
+        EditOrder();
+        CustomersChoice();
+      }
       else if (choice == "x" || choice == "X")
       {
         if (ContinueOrExit())
@@ -196,13 +234,13 @@ namespace BakeryService.Models
 
     public bool ContinueOrExit()
     {
-      Console.WriteLine("['1' to continue, '2' to exit]");
-      string choice = Console.ReadLine();
-      if (choice == "1")
+      Console.WriteLine("['y' to continue, 'x' to exit]");
+      string choice = Console.ReadLine().ToLower();
+      if (choice == "y")
       {
         return true;
       }
-      else if (choice == "2")
+      else if (choice == "x")
       {
         Console.WriteLine("Goodbye.");
         System.Environment.Exit(0);

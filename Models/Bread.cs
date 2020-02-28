@@ -37,6 +37,13 @@ namespace Products
       }
     }
 
+    public int RemoveBread(int loaves)
+    {
+      BreadInventory += loaves;
+      Console.WriteLine($"You have successfully removed ({loaves}) loaves of bread from your order.");
+      return loaves;
+    }
+
     public static int GetCost(int amount)
     {
       int remainder = amount % 3;
