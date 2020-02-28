@@ -13,12 +13,13 @@ This C# application allows the user to "enter" the bakery and utilizes the user'
 
 Download or clone the repository to run this program locally! _This program requires .NET Core SDK to run. [Here is a free tutorial](https://www.learnhowtoprogram.com/c-and-net/getting-started-with-c/installing-c-and-net) for installing .NET on Mac or Windows 10._
 
-* **Download ZIP:**
-  * Select "Download" on the [GitHub Repository](https://github.com/KristaRutz/Pierre-s-Bakery-ConsoleApp.git) site 
-  * Download ZIP: Open the ZIP download and extract files. The new folder will be created as "Pierre-s-Bakery-ConsoleApp"
-* **Clone:**
-  * Clone from command line into your Desktop: ```$ git clone https://github.com/KristaRutz/Pierre-s-Bakery-ConsoleApp.git```
-  * The new directory will be created as "Desktop/Pierre-s-Bakery-ConsoleApp"
+* Download or clone this repo.
+  * **To Download ZIP:**
+    * Select "Download" on the [GitHub Repository](https://github.com/KristaRutz/Pierre-s-Bakery-ConsoleApp.git) site 
+    * Once downloaded, open the ZIP and extract files. The new folder will be created as 'Pierre-s-Bakery-ConsoleApp'.
+  * **To Clone:**
+    * Clone from command line into your Desktop: ```$ git clone https://github.com/KristaRutz/Pierre-s-Bakery-ConsoleApp.git```
+    * The new directory will be created as 'Desktop/Pierre-s-Bakery-ConsoleApp'.
 * Once you have stored the files locally, execute the following commands. 
   * Navigate to the application directory: ```$ cd Pierre-s-Bakery-ConsoleApp```
   * ```dotnet build```
