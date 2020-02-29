@@ -2,45 +2,50 @@ using System;
 
 namespace Products
 {
-  public class BakedGood
+  public abstract class BakedGood
   {
-    public static int Price { get; set; } = 2;
-    public static string Category { get; set; } = "pastry";
-    public int PastryInventory;
+    public virtual int UnitPrice { get; set; } = 1;
+    public int DealMultiplier { get; set; } = 3;
+    public virtual int MultiplierDiscount { get; set; } = 0;
+    public virtual string CategorySingular { get; set; }
+    public virtual string CategoryPlural { get; set; }
+    public int Inventory;
 
     public BakedGood(int amount)
     {
-      PastryInventory = amount;
+      Inventory = amount;
     }
 
-    public int OrderPastry(int pastries)
+    public virtual int Order(int amount)
     {
-      if (PastryInventory >= pastries)
+      if (Inventory >= amount)
       {
-        PastryInventory -= pastries;
-        Console.WriteLine($"You have successfully ordered ({pastries}) pastries.");
-        return pastries;
+        Inventory -= amount;
+        Console.WriteLine($"You have successfully ordered ({amount}) {CategoryPlural}.");
+        return amount;
       }
       else
       {
-        int purchased = PastryInventory;
-        PastryInventory = 0;
-        Console.WriteLine($"You have attempted to buy more pastries than are currently in stock. We let you add ({purchased}) pastries to your order.");
+        int purchased = Inventory;
+        Inventory = 0;
+        Console.WriteLine($"You have attempted to buy more {CategoryPlural} than are currently in stock. We let you add ({purchased}) {CategoryPlural} to your order.");
         return purchased;
       }
     }
 
-    public int RemovePastry(int pastries)
+    public int Remove(int amount)
     {
-      PastryInventory += pastries;
-      Console.WriteLine($"You have successfully removed ({pastries}) pastries from your order.");
-      return pastries;
+      Inventory += amount;
+      Console.WriteLine($"You have successfully removed ({amount}) {CategoryPlural} from your order.");
+      return amount;
     }
 
-    public static int GetCost(int amount)
+    public int GetCost(int amount)
     {
-      int remainder = amount % 3;
-      int subtotal = (remainder * Price) + (amount-remainder)/3*(Price*3-1);
+      int nonDiscounted = amount % DealMultiplier;
+      int discounted = (amount - nonDiscounted);
+      int instancesOfDeal = (discounted/DealMultiplier);
+      int subtotal = (amount * UnitPrice) - (instancesOfDeal * MultiplierDiscount);
       return subtotal;
     }
   }

@@ -35,9 +35,9 @@ namespace BakeryService.Models
     {
       Console.WriteLine("");
       Console.WriteLine("---------- M E N U ----------");
-      if (Breads.BreadInventory > 0 || Pastries.PastryInventory > 0)
+      if (Breads.Inventory > 0 || Pastries.Inventory > 0)
       {
-        if (Breads.BreadInventory > 0)
+        if (Breads.Inventory > 0)
         {
           Console.WriteLine("Loaf of bread..............$5");
         }
@@ -45,7 +45,7 @@ namespace BakeryService.Models
         {
           Console.WriteLine("Loaf of bread....OUT OF STOCK");
         }
-        if (Pastries.PastryInventory > 0)
+        if (Pastries.Inventory > 0)
         {
           Console.WriteLine("Pastry.....................$2");
         }
@@ -78,7 +78,7 @@ namespace BakeryService.Models
         int amount = int.Parse(Console.ReadLine());
         if (UserBreads >= amount)
         {
-          UserBreads -= Breads.RemoveBread(amount);
+          UserBreads -= Breads.Remove(amount);
           Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
         }
         else 
@@ -92,7 +92,7 @@ namespace BakeryService.Models
         int amount = int.Parse(Console.ReadLine());
         if (UserPastries >= amount)
         {
-          UserPastries -= Pastries.RemovePastry(amount);
+          UserPastries -= Pastries.Remove(amount);
           Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
         }
         else
@@ -118,14 +118,14 @@ namespace BakeryService.Models
       {
         Console.WriteLine("How many loaves of bread would you like to order? [Enter a number]");
         int amount = int.Parse(Console.ReadLine());
-        UserBreads += Breads.OrderBread(amount);
+        UserBreads += Breads.Order(amount);
         Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
       }
       else if (choice == "pastry" || choice == "pastries" || choice == "p")
       {
         Console.WriteLine("How many pastries would you like to order? [Enter a number]");
         int amount = int.Parse(Console.ReadLine());
-        UserPastries += Pastries.OrderPastry(amount);
+        UserPastries += Pastries.Order(amount);
         Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
       } 
       else if (choice == "nothing" || choice == "x" || choice == "n")
