@@ -20,7 +20,6 @@ namespace Products
     public void Slice()
     {
       Sliced = true;
-      // increase the cost of sliced ?
     }
 
     // public int Order(int loaves)

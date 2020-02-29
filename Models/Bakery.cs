@@ -102,7 +102,7 @@ namespace BakeryService.Models
       } 
       else if (choice == "nothing" || choice == "x" || choice == "n" || choice == "none")
       {
-
+        Console.Write("Okay. ");
       }
       else {
         Console.Write("Please enter a valid input. ");
@@ -149,7 +149,10 @@ namespace BakeryService.Models
       Console.WriteLine($"You have successfully purchased your items for a total of ${Subtotal()}. Enjoy your baked goods, and we'll see you next time at Pierre's!");
       UserPastries = 0;
       UserBreads = 0;
-      ContinueOrExit();
+      if (ContinueOrExit())
+      {
+        CustomersChoice();
+      }
     }
 
     public void PrintOrder()
@@ -189,7 +192,6 @@ namespace BakeryService.Models
       Console.WriteLine("'4' to checkout");
       Console.WriteLine("'5' to edit current order");
       Console.WriteLine("'x' to quit");
-      //Console.WriteLine("[Type '1' to view the daily menu again, '2' to make a menu order, '3' to view your current order, '4' to checkout, or 'x' to quit]");
       string choice = Console.ReadLine();
       if (choice == "1")
       {
