@@ -31,8 +31,8 @@ Download or clone the repository to run this program locally! _This program requ
 * **C#**
 * **.NET Core 2.2**
 
-## Specifications
-<!-- <details> -->
+## Specifications and User Stories
+<details>
   <summary>Expand specs for this project</summary>
 
 | Spec | Example Input | Expected Output |
@@ -45,6 +45,20 @@ Download or clone the repository to run this program locally! _This program requ
 | User can view the total cost of the purchase | "view subtotal" | Your order costs $14 |
 | Pierre's deals will be applied: B2GO bread, 3 for $5 pastries. | "Buy 3 pastries" | Subtotal: $5 |
 | User can remove bread or pastries from their order | Remove 1 pastry | Subtotal: $4, Pastries: 2 |
+
+</details>
+<details>
+  <summary>Expand user stories for this project</summary>
+
+| As a _User-Type_, | I want... | so that... |
+| :-------------     | :------------- | :------------- |
+| As a bakery manager, | I want my customers to know what the menu items are and the deals | so that they can make informed decisions |
+| As a bakery manager, | I want an app that tracks how many items I have in inventory | so that customers aren't buying products I don't have |
+| As a bakery manager, | I want an app that keeps a record of all revenue | so that I can manage my finances |
+| As a fan of baked goods, | I want an app to order baked goods | so that I can eat them! |
+| As a customer, | I want to be able to input custom amounts | so that my unique needs are met |
+| As a customer, | I want an app that automatically applies discounts | so that I can maximize my spending |
+| As a person who changes my mind | I want the ability to edit my order | so that I'm not stuck buying things I don't want |
 
 </details>
 
