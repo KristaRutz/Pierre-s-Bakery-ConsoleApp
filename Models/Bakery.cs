@@ -70,43 +70,46 @@ namespace BakeryService.Models
     public void EditOrder()
     {
       PrintOrder();
-      Console.WriteLine("Which item would you like to edit?");
-      string choice = Console.ReadLine().ToLower();
-      if ((choice == "bread" || choice == "b") && UserBreads > 0)
+      if (UserBreads > 0 || UserPastries > 0)
       {
-        Console.WriteLine("You are editing your bread order. How many loaves would you like to remove? [Enter a number]");
-        int amount = int.Parse(Console.ReadLine());
-        if (UserBreads >= amount)
+        Console.WriteLine("Which item would you like to edit?");
+        string choice = Console.ReadLine().ToLower();
+        if ((choice == "bread" || choice == "b") && UserBreads > 0)
         {
-          UserBreads -= Breads.Remove(amount);
-          Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
+          Console.WriteLine("You are editing your bread order. How many loaves would you like to remove? [Enter a number]");
+          int amount = int.Parse(Console.ReadLine());
+          if (UserBreads >= amount)
+          {
+            UserBreads -= Breads.Remove(amount);
+            Console.WriteLine($"Current Bread: ({UserBreads}) loaves for ${Bread.GetCost(UserBreads)}");
+          }
+          else 
+          {
+            Console.Write("You cannot remove more bread than you have already ordered.");
+          }
         }
-        else 
+        else if (choice == "pastry" || choice == "pastries" || choice == "p")
         {
-          Console.Write("You cannot remove more bread than you have already ordered.");
-        }
-      }
-      else if (choice == "pastry" || choice == "pastries" || choice == "p")
-      {
-        Console.WriteLine("You are editing your pastry order. How many pastries would you like to remove? [Enter a number]");
-        int amount = int.Parse(Console.ReadLine());
-        if (UserPastries >= amount)
+          Console.WriteLine("You are editing your pastry order. How many pastries would you like to remove? [Enter a number]");
+          int amount = int.Parse(Console.ReadLine());
+          if (UserPastries >= amount)
+          {
+            UserPastries -= Pastries.Remove(amount);
+            Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
+          }
+          else
+          {
+            Console.Write("You cannot remove more pastries than you have already ordered.");
+          }
+        } 
+        else if (choice == "nothing" || choice == "x" || choice == "n" || choice == "none")
         {
-          UserPastries -= Pastries.Remove(amount);
-          Console.WriteLine($"Current Pastries: ({UserPastries}) pastries for ${Pastry.GetCost(UserPastries)}");
+          Console.Write("Okay. ");
         }
-        else
-        {
-          Console.Write("You cannot remove more pastries than you have already ordered.");
+        else {
+          Console.Write("Please enter a valid input. ");
+          EditOrder();
         }
-      } 
-      else if (choice == "nothing" || choice == "x" || choice == "n" || choice == "none")
-      {
-        Console.Write("Okay. ");
-      }
-      else {
-        Console.Write("Please enter a valid input. ");
-        EditOrder();
       }
     }
 

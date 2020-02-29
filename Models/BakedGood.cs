@@ -4,11 +4,11 @@ namespace Products
 {
   public abstract class BakedGood
   {
-    public virtual int UnitPrice { get; set; } = 1;
-    public int DealMultiplier { get; set; } = 3;
-    public virtual int MultiplierDiscount { get; set; } = 0;
-    public virtual string CategorySingular { get; set; }
-    public virtual string CategoryPlural { get; set; }
+    public static int UnitPrice { get; set; } = 1;
+    public static int DealMultiplier { get; set; } = 3;
+    public static int MultiplierDiscount { get; set; } = 0;
+    public static string CategorySingular { get; set; } = "good";
+    public static string CategoryPlural { get; set; } = "goods";
     public int Inventory;
 
     public BakedGood(int amount)
@@ -16,7 +16,7 @@ namespace Products
       Inventory = amount;
     }
 
-    public virtual int Order(int amount)
+    public int Order(int amount)
     {
       if (Inventory >= amount)
       {
@@ -40,7 +40,7 @@ namespace Products
       return amount;
     }
 
-    public int GetCost(int amount)
+    public static int GetCost(int amount)
     {
       int nonDiscounted = amount % DealMultiplier;
       int discounted = (amount - nonDiscounted);
